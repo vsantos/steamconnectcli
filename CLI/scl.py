@@ -1,6 +1,6 @@
 # -*- encoding: UTF-8 -*-
 
-#Chimera's Library (CML)
+#Steam Chimera's Library (SCL)
 
 import requests
 import time
@@ -20,8 +20,11 @@ class SteamConnect:
 		#We have to disable the SSL warnings from Steam manually, life sucks
 		requests.packages.urllib3.disable_warnings()
 
+		if os.path.isdir("/tmp/chimera_os/") == False:
+			os.system("mkdir /tmp/chimera_os/")
+
 	def getting_credentials(self):
-		if os.path.isfile('cookies.tmp') == False or os.path.isfile('user_info.txt') == False:	
+		if os.path.isfile('/tmp/chimera_os/cookies.tmp') == False or os.path.isfile('/tmp/chimera_os/user_info.txt') == False:	
 			self.steam_user = raw_input("Username: ")
 			self.steam_password = getpass.getpass("Password: ")
 		else:
@@ -105,22 +108,22 @@ class SteamConnect:
 				print ("User logged in.")
 				#print data_login
 				
-				with open('user_info.txt', 'w') as ui:
+				with open('/tmp/chimera_os/user_info.txt', 'w') as ui:
 					ui.write(data_login['transfer_parameters']['steamid'])
 					print ("== User's info updated. ==")
 
-				with open("steam_username.txt","w") as h:
+				with open("/tmp/chimera_os/steam_username.txt","w") as h:
 					h.write(values_for_login['username'])
 					print ("== Username updated. ==")
 
-				with open('cookies.tmp', 'w') as f:
+				with open('/tmp/chimera_os/cookies.tmp', 'w') as f:
 					pickle.dump(requests.utils.dict_from_cookiejar(response_for_login.cookies), f)
 					print ("== Cookies importados. ==")
 
 	def getting_user_library(self):
 	
 		try:
-			file = open('user_info.txt','r')
+			file = open('/tmp/chimera_os/user_info.txt','r')
 			USER_ID64 = file.read()
 			file.close()
 		except:
@@ -131,7 +134,7 @@ class SteamConnect:
 		print ("Connecting to your library...\n")
 
 		try:
-			with open('cookies.tmp') as f:
+			with open('/tmp/chimera_os/cookies.tmp') as f:
 				cookie = requests.utils.cookiejar_from_dict(pickle.load(f))
 		except:
 			print("I could not open the 'cookies' file properly. Please check if everything is ok.")	
@@ -154,7 +157,7 @@ class SteamConnect:
 			#Now lets split out on shell the user's library
 			games_count = 0
 			games = []
-			with codecs.open('user_library.json', 'w', encoding='utf-8') as ul:
+			with codecs.open('/tmp/chimera_os/user_library.json', 'w', encoding='utf-8') as ul:
 				print ("Inserting user's library")
 
 				#try:
@@ -162,13 +165,6 @@ class SteamConnect:
 				for key in json.loads(final_json_all_games):
 					games_count += 1
 
-					#ul.write("ID: " + str(key['appid'])+"\n")
-					#ul.write("Name: "+ key['name']+"\n")
-					#try:
-						#ul.write("Hours played: " + str(key['hours_forever'])+"\n")
-					#except:
-						#ul.write("Hours played: Never played\n")
-					#ul.write("")
 					gameid = key['appid']
 					gamename = key['name']
 					try:
@@ -179,13 +175,14 @@ class SteamConnect:
 					user_games.append(game_list)
 				#except:
 					#print ("Something went wrong when splitting user's library.")
-				json.dumps(user_games, ul)
+				#print user_games	
+				json.dump(user_games, ul)
 				print ("Your user currently have an amount of "+str(games_count)+" games.\n")
 
 	def list_friends(self):
 		self.STEAM_API_KEY = '219AE164017EB5546AE1C6059ECDBF8A'
 		try:
-			file = open('user_info.txt','r')
+			file = open('/tmp/chimera_os/user_info.txt','r')
 			USER_ID64 = file.read()
 			file.close()
 		except:
@@ -248,19 +245,15 @@ class SteamConnect:
 					print ("")
 
 	def remove_local_cookie_files(self):
-		if os.path.isfile('cookies.tmp') == False and os.path.isfile('user_info.txt') == False and os.path.isfile('steam_username.txt') == False:
+		if os.path.isfile('/tmp/chimera_os/cookies.tmp') == False and os.path.isfile('/tmp/chimera_os/user_info.txt') == False and os.path.isfile('steam_username.txt') == False:
 			print ("You do not have any stored files to delete.\n")
 		#if os.path.isfile('cookies.tmp') == True and os.path.isfile('user_info.txt') == True and os.path.isfile('steam_username.txt') == False:
 		else:
 			try:
-				os.remove('cookies.tmp')
-				os.remove('user_info.txt')
-				os.remove('steam_username.txt')
-				os.remove('user_library.json')
+				os.remove('/tmp/chimera_os/cookies.tmp')
+				os.remove('/tmp/chimera_os/user_info.txt')
+				os.remove('/tmp/chimera_os/steam_username.txt')
+				os.remove('/tmp/chimera_os/user_library.json')
 			except:
 				print ("File not found.")
 			print ("Files deleted, please create a new session. \n")
-
-class SpotifyConnect():
-	def __init__(self):
-		print ("Just to start over.")

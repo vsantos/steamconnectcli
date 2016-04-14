@@ -3,15 +3,21 @@
 
 import os
 import sys
+import json
+import requests
+import operator
+import codecs
 import time
 from termcolor import colored
-from cl import SteamConnect
+from scl import SteamConnect
+from game_install import *
 
 pick_me = SteamConnect()
 
+
 def menu():
-	if os.path.isfile('steam_username.txt') == True:
-		with open('steam_username.txt','r') as y:
+	if os.path.isfile('/tmp/chimera_os/steam_username.txt') == True:
+		with open('/tmp/chimera_os/steam_username.txt','r') as y:
 			currently_user = y.read()
 	else:
 		currently_user = "Anonymous (need login)"
@@ -31,19 +37,19 @@ def menu():
 	print("Please select an option: \n\
 		\n\
 		1 - Please, log me in!; \n\
-		2 - Show me my amount of games and update my local library;\n\
+		2 - Update my game library;\n\
 		3 - List my friends (Only public profiles for now);\n\
 		4 - Remove 'remember me' session files;\n\
-		5 - I want to install a game! (Not yet) \n\
+		5 - I want to install a game! \n\
 		9 - Exit\n")
 	option = raw_input("SIS > ")
 
 	if option == "1":
-		if os.path.isfile('cookies.tmp') == False or os.path.isfile('user_info.txt') == False:
+		if os.path.isfile('/tmp/chimera_os/cookies.tmp') == False or os.path.isfile('/tmp/chimera_os/user_info.txt') == False:
 			pick_me.getting_credentials()
 			pick_me.get_rsa_from_steam(pick_me.steam_user, pick_me.steam_password)
 			pick_me.do_steam_login(pick_me.values_for_login)
-			print "\nReturning to menu in 3aqas..."
+			print "\nReturning to menu in 3s..."
 			time.sleep(3)
 			menu()
 		else:
@@ -67,10 +73,9 @@ def menu():
 		time.sleep(3)
 		menu()
 	elif option == "5":
-		print ("Not working yet.")
-		time.sleep(2)
-		menu()
-	elif option == "9":
+		dialog_game_choice()
+		time.sleep(1)
+	elif option == "9" or option == "exit":
 		sys.exit()
 	else:
 		print ("Honey, select a valid option!")
