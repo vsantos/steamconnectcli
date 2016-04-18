@@ -121,7 +121,11 @@ class SteamConnect:
 					print ("== Cookies importados. ==")
 
 	def getting_user_library(self):
-	
+		if os.path.isfile('/tmp/chimera_os/user_info.txt') == False:
+			print ("You have to log in.")
+			time.sleep(2)
+			sys.exit()
+
 		try:
 			file = open('/tmp/chimera_os/user_info.txt','r')
 			USER_ID64 = file.read()
