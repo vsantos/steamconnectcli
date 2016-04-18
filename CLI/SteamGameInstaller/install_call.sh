@@ -1,7 +1,7 @@
 #!/bin/bash
 
-TEMP_STEAM_USERNAME=$( cat /tmp/chimera_os/steam_username.txt )
 TEMP_STEAM_PASSWORD=$( dialog --stdout --title 'Confirmação' --inputbox "Por gentileza confirme sua senha da Steam" 10 50)
+TEMP_STEAM_USERNAME=$( cat /tmp/chimera_os/steam_username.txt )
 TEMP_STEAM_GAME_ID=$( cat /tmp/chimera_os/temp_gameid.txt )
 TEMP_STEAM_GAME_NAME=$( cat /tmp/chimera_os/temp_gamename.txt )
 TEMP_STEAM_GAME_PLAT=$( cat /tmp/chimera_os/temp_platforms.txt )
