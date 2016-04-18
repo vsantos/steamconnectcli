@@ -16,8 +16,9 @@ requests.packages.urllib3.disable_warnings()
 pick_me = SteamConnect()
 
 #First we will import user_library.json from /tmp, prepare the tuples, sort them and then display as UI
-import dialog
-d = dialog.Dialog()
+try:
+	import dialog
+	d = dialog.Dialog()
 except:
 	print ("Seens that you do not have python-dialog installed, we won't take care of it for you.")
 	print ("before continue install Dialog: sudo apt-get install python-dialog")
