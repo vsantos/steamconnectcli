@@ -11,7 +11,7 @@ import time
 from termcolor import colored
 from scl import SteamConnect
 
-requests.packages.urllib3.disable_warnings()
+#requests.packages.urllib3.disable_warnings()
 
 pick_me = SteamConnect()
 
@@ -42,7 +42,7 @@ def dialog_game_choice():
 
 	user_games_list = []
 	for g in temp_library:
-		user_games_list.append((str(g['gameid']), g['name'],0))
+		user_games_list.append((str(g['gameid']).encode('utf-8'), g['name'].encode('utf-8'), 0))
 	user_games_list.sort(key=operator.itemgetter(1))
 	
 	code, get_gameid = d.radiolist("You currently have " +str(len(user_games_list))+ " games. Please, choose one of them to install.", width=80, height=80, list_height=20,choices=user_games_list)
