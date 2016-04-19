@@ -7,5 +7,6 @@ RUN mkdir /tmp/CLI/
 
 COPY CLI/ /tmp/CLI/
 
-CMD echo "Hello World from Docker?\n"
+#RUN /tmp/CLI/SteamGameInstaller/steamcmd_setup.sh
+CMD echo "Hello World from Chimera?\n"
 CMD python /tmp/CLI/steam_connect_cli.py
