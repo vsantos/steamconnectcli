@@ -18,7 +18,7 @@ class SteamConnect:
 
 	def __init__(self):
 		#We have to disable the SSL warnings from Steam manually, life sucks
-		requests.packages.urllib3.disable_warnings()
+		#requests.packages.urllib3.disable_warnings()
 
 		if os.path.isdir("/tmp/chimera_os/") == False:
 			os.system("mkdir /tmp/chimera_os/")
