@@ -3,11 +3,8 @@
 #First things first, we need to install Steam CMD as core of our software and your dependences as well
 
 sudo rm /var/lib/apt/lists/lock 
-sudo apt-get update
 #For x64 systems otherwise it will just be ignored
 echo Y | sudo apt-get install lib32gcc1
-
-#installing python and steam connect dependences
 
 #installing dialog for future purpose
 echo Y | sudo apt-get install python-pip python-dev build-essential
@@ -28,7 +25,7 @@ rm steamcmd_linux.tar.gz
 
 #Preparing the game cenario
 #sudo apt-get install wine1.4
-echo Y | sudo apt-get install wine1.8
+echo Y | sudo apt-get install wine
 echo Y | sudo apt-get install winetricks
 mkdir ~/steamcmd/games/exec_script
 
