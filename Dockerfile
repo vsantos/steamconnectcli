@@ -13,5 +13,5 @@ RUN mkdir /tmp/CLI/
 COPY CLI/ /tmp/CLI/
 
 RUN chmod +x /tmp/CLI/SteamGameInstaller/steamcmd_setup.sh
-RUN ./tmp/CLI/SteamGameInstaller/steamcmd_setup.sh
+RUN /tmp/CLI/SteamGameInstaller/steamcmd_setup.sh
 CMD python ./tmp/CLI/steam_connect_cli.py
