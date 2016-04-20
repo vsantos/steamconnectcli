@@ -11,7 +11,7 @@ import time
 from termcolor import colored
 from scl import SteamConnect
 
-#requests.packages.urllib3.disable_warnings()
+requests.packages.urllib3.disable_warnings()
 
 pick_me = SteamConnect()
 
@@ -113,4 +113,5 @@ def dialog_game_installer(name_game_choice, get_gameid):
 		file3.write(supported_platforms[0])
 		file2.close()
 
-		os.system("./SteamGameInstaller/install_call.sh")
+		os.system("chmod +x ./CLI/SteamGameInstaller/install_call.sh")
+		os.system("./CLI/SteamGameInstaller/install_call.sh")
