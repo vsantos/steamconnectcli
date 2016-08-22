@@ -8,10 +8,12 @@ import requests
 import operator
 import codecs
 import time
+import subprocess
 from termcolor import colored
 from scl import SteamConnect
 
 requests.packages.urllib3.disable_warnings()
+subprocess.call(command.encode(sys.getfilesystemencoding()))
 
 pick_me = SteamConnect()
 
@@ -90,8 +92,7 @@ def dialog_game_installer(name_game_choice, get_gameid):
 			if data[get_gameid]['data']['platforms']['mac'] == True:
 				supported_platforms.append("mac")
 
-	confirm_install = d.yesno("Your choice is:\n -> %s.\n\n\
-	Do you want to continue?"\
+	confirm_install = d.yesno("Your choice is:\n -> %s.\n\n\Do you want to continue?"\
 	%(name_game_choice), height=15, width=35)
 	
 	if confirm_install == 1:
