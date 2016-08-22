@@ -34,14 +34,13 @@ def menu():
 		print ("Currently logged in as: "+colored(currently_user,'green')+"\n")
 	print ("================\n")
 
-	print("Please select an option: \n\
-		\n\
-		1 - Please, log me in!; \n\
-		2 - Update my game library;\n\
-		3 - List my friends (Only public profiles for now);\n\
-		4 - Remove 'remember me' session files;\n\
-		5 - I want to install a game! \n\
-		9 - Exit\n")
+	print("""Please select an option: \n
+		1 - Please, log me in!;
+		2 - Update my game library;
+		3 - List my friends (Only public profiles for now);
+		4 - Remove 'remember me' session files;
+		5 - I want to install a game!
+		9 - Exit\n""")
 	option = raw_input("SIS > ")
 
 	if option == "1":

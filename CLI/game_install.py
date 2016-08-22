@@ -13,7 +13,7 @@ from termcolor import colored
 from scl import SteamConnect
 
 requests.packages.urllib3.disable_warnings()
-subprocess.call(command.encode(sys.getfilesystemencoding()))
+#subprocess.call(command.encode(sys.getfilesystemencoding()))
 
 pick_me = SteamConnect()
 
