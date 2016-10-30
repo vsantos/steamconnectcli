@@ -39,14 +39,14 @@ def dialog_game_choice():
 		pick_me.getting_user_library()
 		dialog_game_choice()
 
-	f_output = codecs.open('/tmp/chimera_os/user_library.json', 'r', encoding='utf-8')
+	f_output = codecs.open('/tmp/chimera_os/user_library.json', 'r')
 	temp_library = json.load(f_output)
 
 	user_games_list = []
 	for g in temp_library:
-		user_games_list.append((str(g['gameid']).encode('utf-8'), g['name'].encode('utf-8'), 0))
+		user_games_list.append((str(g['gameid']), g['name'], 0))
 	user_games_list.sort(key=operator.itemgetter(1))
-	
+
 	code, get_gameid = d.radiolist("You currently have " +str(len(user_games_list))+ " games. Please, choose one of them to install.", width=80, height=80, list_height=20,choices=user_games_list)
 
 	#Loop for getting the game's name from selected ID
@@ -94,7 +94,7 @@ def dialog_game_installer(name_game_choice, get_gameid):
 
 	confirm_install = d.yesno("Your choice is:\n -> %s.\n\n\Do you want to continue?"\
 	%(name_game_choice), height=15, width=35)
-	
+
 	if confirm_install == 1:
 		#os.system("clear")
 		dialog_game_choice()
