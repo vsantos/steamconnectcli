@@ -124,11 +124,11 @@ class SteamConnect:
 				with open('/tmp/chimera_os/steam_cookies.tmp', 'w') as f:
 
 					jar = http.cookiejar.LWPCookieJar(filename="/tmp/chimera_os/steam.cookies")
-					print (response_for_login.cookies)
+					#print (response_for_login.cookies)
 					for c in response_for_login.cookies:
 					    jar.set_cookie(c)
 					jar.save(ignore_discard=True)
-					print (jar)
+					#print (jar)
 					print ("[INFO]: Cookies imported.")
 
 	def getting_user_library(self):
