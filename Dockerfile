@@ -1,4 +1,4 @@
-FROM base/archlinux
+FROM base/archlinux:2015.06.01
 
 MAINTAINER Victor Santos <victor.ssouza@hotmail.com.br>
 
