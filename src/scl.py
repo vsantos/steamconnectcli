@@ -60,14 +60,14 @@ class SteamConnect:
 			self.values_for_login.update({'rsatimestamp':data_rsa['timestamp']})
 
 			if data_rsa['success']:
-				print ("[INFO]: Got RSA keys successfully.\n")
+				print ("[INFO]: Got RSA keys successfully.")
 
 			mod = int(str(data_rsa['publickey_mod']), 16)
 			exp = int(str(data_rsa['publickey_exp']), 16)
 			rsa = RSA.construct((mod,exp))
 			cipher = PKCS1_v1_5.new(rsa)
 			self.values_for_login.update({'password': base64.b64encode(cipher.encrypt(steam_password))})
-			print ("[INFO]: Password encrypted. \n")
+			print ("[INFO]: Password encrypted.")
 
 	def do_steam_login(self, values_for_login):
 		URL_DO_LOGIN = 'https://steamcommunity.com/login/dologin/'
@@ -77,18 +77,18 @@ class SteamConnect:
 				response_for_login = c.post(URL_DO_LOGIN, self.values_for_login)
 				data_login = response_for_login.json()
 			except:
-				print ("[ERROR]: Could not login, did you checked your password? \n")
+				print ("[ERROR]: Could not login, did you checked your password?")
 
 			if data_login['success'] == False:
 				try:
 					if data_login['message'] == "Please verify your humanity by re-entering the characters below.":
-						print ("[ERROR]: Are you human? Please enter captcha or try again later.\n")
+						print ("[ERROR]: Are you human? Please enter captcha or try again later.")
 				except:
 					pass
 
 				try:
 					if data_login['message'] == "There have been too many login failures from your network in a short time period.  Please wait and try again later.":
-						print ("[ERROR]: Too many login failures from your network, try again later. \n")
+						print ("[ERROR]: Too many login failures from your network, try again later.")
 				except:
 					pass
 
