@@ -76,7 +76,7 @@ def menu():
 	elif option == "9" or option == "exit":
 		sys.exit()
 	else:
-		print ("[INFO]: Please, select a valid option!")
+		print ("\n[INFO]: Please, select a valid option!")
 		time.sleep(3)
 		menu()
 
