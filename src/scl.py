@@ -29,8 +29,12 @@ class SteamConnect:
 			self.steam_user = input("Username: ")
 			steam_temp_password = getpass.getpass("Password: ")
 			self.steam_password = str.encode(steam_temp_password)
-		else:
+			return True
+		elif os.path.isfile('/tmp/chimera_os/cookies.tmp'):
 			print ("[INFO]: You are already logged.")
+			return True
+		else:
+			return False
 
 	def get_rsa_from_steam(self, steam_user, steam_password):
 		URL_RSA = 'https://steamcommunity.com/login/getrsakey/'
@@ -66,8 +70,12 @@ class SteamConnect:
 			exp = int(str(data_rsa['publickey_exp']), 16)
 			rsa = RSA.construct((mod,exp))
 			cipher = PKCS1_v1_5.new(rsa)
-			self.values_for_login.update({'password': base64.b64encode(cipher.encrypt(steam_password))})
-			print ("[INFO]: Password encrypted.")
+			try:
+				self.values_for_login.update({'password': base64.b64encode(cipher.encrypt(steam_password))})
+				print ("[INFO]: Password encrypted.")
+				return True
+			except:
+				return False
 
 	def do_steam_login(self, values_for_login):
 		URL_DO_LOGIN = 'https://steamcommunity.com/login/dologin/'
@@ -78,13 +86,14 @@ class SteamConnect:
 				data_login = response_for_login.json()
 			except:
 				print ("[ERROR]: Could not login, did you checked your password?")
+				return False
 
 			if data_login['success'] == False:
 				try:
 					if data_login['message'] == "Please verify your humanity by re-entering the characters below.":
 						print ("[ERROR]: Are you human? Please enter captcha or try again later.")
 				except:
-					pass
+					return False
 
 				try:
 					if data_login['message'] == "There have been too many login failures from your network in a short time period.  Please wait and try again later.":
@@ -130,6 +139,9 @@ class SteamConnect:
 					jar.save(ignore_discard=True)
 					#print (jar)
 					print ("[INFO]: Cookies imported.")
+				return True
+			else:
+				return False
 
 	def getting_user_library(self):
 		if os.path.isfile('/tmp/chimera_os/user_info.txt') == False:
