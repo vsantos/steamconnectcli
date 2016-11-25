@@ -87,9 +87,9 @@ def dialog_game_installer(name_game_choice, get_gameid):
 
 			if data[get_gameid]['data']['platforms']['linux'] == True:
 				supported_platforms.append("Linux")
-			if data[get_gameid]['data']['platforms']['windows'] == True:
+			elif data[get_gameid]['data']['platforms']['windows'] == True:
 				supported_platforms.append("Windows")
-			if data[get_gameid]['data']['platforms']['mac'] == True:
+			elif data[get_gameid]['data']['platforms']['mac'] == True:
 				supported_platforms.append("mac")
 
 	confirm_install = d.yesno("Your choice is:\n -> %s.\n\n\Do you want to continue?"\
@@ -114,5 +114,5 @@ def dialog_game_installer(name_game_choice, get_gameid):
 		file3.write(supported_platforms[0])
 		file2.close()
 
-		os.system("chmod +x ./CLI/SteamGameInstaller/install_call.sh")
-		os.system("./CLI/SteamGameInstaller/install_call.sh")
+		os.system("chmod +x ./steamconnect_game_installation.sh")
+		os.system("./steamconnect_game_installation.sh")
