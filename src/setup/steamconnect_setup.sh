@@ -2,7 +2,7 @@
 # Description: Setup which will allow arch linux distro for executing our games
 
 function validating_distro(){
-    if [[ $(cat /etc/issue) == $1 ]]; then
+    if [[ $(cat /etc/issue) == 'Arch Linux \r (\l)' ]]; then
         echo "[INFO] Setting up pre-requisites for Arch Linux"
     else
         echo "[ERROR]: Distro not supported"
@@ -20,12 +20,13 @@ function setup_packages(){
     && pacman -S --noconfirm dialog \
     && pacman -S --noconfirm ncurses \
     && pacman -S --noconfirm wget \
+    && pacman -S --noconfirm vim \
     && pacman -S --noconfirm net-tools \
     && ln -s /usr/lib/libncursesw.so.6  /usr/lib/libncursesw.so.5
 
     # Uncomment multilib for installing wine
     sed -i '92,93 s/#//' /etc/pacman.conf
-    pacman -Syy && pacman -S --noconfirm wine winetricks wine_gecko wine-mono \
+    pacman -Syy && pacman -S --noconfirm wine-staging winetricks wine_gecko wine-mono \
         lib32-libpulse lib32-alsa-plugins lib32-mpg123 lib32-sdl
 
     # Installing our app
@@ -60,10 +61,14 @@ function setup_steam_app(){
 
     #We have to remove the desktop symbolic link and create a new one due Steam issues
     rm ~/Desktop/Steam.desktop
+
+    # Executing for the first time SteamCMD
+    chmod +x ~/steamcmd/steamcmd.sh
+    ~/steamcmd/steamcmd.sh
 }
 
 function run(){
-    validating_distro 'Arch Linux \r (\l)'
+    validating_distro
     setup_packages
     setup_steam_app
     setup_steamcmd
