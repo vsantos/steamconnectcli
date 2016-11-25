@@ -26,4 +26,6 @@ else
 	+login $TEMP_STEAM_USERNAME $TEMP_STEAM_PASSWORD  \
 	+force_install_dir ~/.wine/drive_c/"Program Files (x86)"/Steam/steamapps/common/"$TEMP_STEAM_GAME_NAME"/ \
 	+app_update $TEMP_STEAM_GAME_ID validate +quit #> dialog --title "Downloading your game" --tailbox out 0 0
+
+    ln -s ~/.wine/drive_c/"Program Files (x86)"/Steam/steamapps/common/"$TEMP_STEAM_GAME_NAME" ~/Desktop/"$TEMP_STEAM_GAME_NAME"
 fi
