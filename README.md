@@ -9,7 +9,7 @@ This app is still under development and can contain several bugs! :(
 ## **Requirements**
 * Python 3
 * pip3 requirements
-* *nix System
+* Arch Linux
 
 ## **Getting started**
 0) [Optional]: Create a virtual environment for Python3 if you are just testing the app, no need to mess with your own system  
